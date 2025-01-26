@@ -1,0 +1,22 @@
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    height: 100vh;
+    background-color: #f4f4f4;
+}
+
+.display {
+    margin-bottom: 20px;
+    text-align: right;
+    padding: 10px;
+    height: 50px;
+}
+
+div.buttons {
+    display: flex;
+    gap: 5px;
+    width: auto;
+}
