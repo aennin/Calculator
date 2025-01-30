@@ -16,8 +16,9 @@ body {
     padding: 20px;
 }
 
-.display {
-    background: #222;
+
+#display {
+    background: #0f0808;
     color: #fff;
     font-size: 2em;
     padding: 10px;
