@@ -26,16 +26,17 @@ let operator = null;
 function operate(operator, a, b) {
     let result;
     if( operator === "+") {
-        return add(a, b)
+        result = add(a, b)
     } else if (operator === "-") {
-        return subtract(a, b)
+        result = subtract(a, b)
     } else if (operator === "*") {
-        return multiply(a, b)
+        result = multiply(a, b)
     } else if (operator === "/") {
-        return divide(a, b)
+        result = divide(a, b)
     } else {
-        return "Invalid operator"
+        result = "Invalid operator"
     }
+    return Number.isInteger(result) ? result : result.toFixed(4);
 }
 
 const display = document.querySelector("#display");
@@ -85,4 +86,4 @@ clear.addEventListener("click", () => {
     b = "";
     operator = null;
     display.innerHTML = "0";
-});
+})
