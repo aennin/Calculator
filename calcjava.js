@@ -44,6 +44,8 @@ const digits = document.querySelectorAll(".digit");
 const operators = document.querySelectorAll(".operator");
 const clear = document.querySelector("#clear");
 const equal = document.querySelector("#equal");
+const decimal = document.querySelector("#decimal")
+const del = document.querySelector("#del")
 
 
 //for digits clicks
@@ -60,11 +62,49 @@ digits.forEach((button) => {
     });
 });
 
+//for decimal button clicks
+decimal.addEventListener("click", () => {
+    decimal.disabled = true; //disable after first click
+})
+
+//for delete button
+del.addEventListener("click", () => {
+    if (display.innerHTML.length === 1 || display.innerHTML === "0") {
+        display.innerHTML = "0";
+        if (b !== "") {
+            b = "";
+        } else {
+            a = null;
+            operator = null;
+        }
+    } else {
+        display.innerHTML = display.innerHTML.slice(0, -1);
+
+        // Update values properly
+        if (b !== "") {
+            b = b.slice(0, -1);
+        } else if (operator !== null) {
+            operator = null; // Remove operator if deleted
+        } else if (a !== null) {
+            a = a.toString().slice(0, -1);
+            if (a === "") a = null; // Ensure `a` doesn't become empty string
+        }
+    }
+});
+
 //for operator clicks
 operators.forEach((button) => {
     button.addEventListener("click", () => {
-        if(a !== "") {
+        decimal.disabled = false; //enable after operation is clicked
+        if(a !== "" && b === "") {
             operator = button.textContent;
+        } else if (a !== "" && b !=="") {
+            let result = operate(operator, parseFloat(a), parseFloat(b));
+            display.innerHTML = result;
+            operator = button.textContent;
+            a = result.toString();
+            b = "";
+
         }
     })
 })
@@ -74,7 +114,7 @@ equal.addEventListener("click", () =>{
     if(a !== "" && b !== "" && operator !== null){
         let result = operate(operator, parseFloat(a), parseFloat(b));
         display.innerHTML = result;       
-        a = result.toString(); //store result in 'a' for further calculation
+        a = result; //store result in 'a' for further calculation
         b = ""; //reset 'b'
         operator = null; //reset operator 
     }
@@ -87,3 +127,5 @@ clear.addEventListener("click", () => {
     operator = null;
     display.innerHTML = "0";
 })
+
+
